@@ -48,7 +48,7 @@ os.chdir(StoreDir)
 ValidationLikelihood = {}
 for h in h_units:
 	l1RBM = pickle.load(open("firstLayer_h" +str(h) + "_preTrained.p", "rb"))
-	l1RBM.estimateZ_AIS(steps=1000, M=500) # might not be enough steps...
+	l1RBM.estimateZ_AIS(steps=5000, M=500) # might not be enough steps...
 	ValidationLikelihood[h] = []
 	for x in xrange(l1RBM.val_data.shape[0]):
 		if l1RBM.val_data[x].sum()>0:
@@ -78,7 +78,7 @@ for h in h_units:
 ValidationLikelihoodL2 = {}
 for h in h_units:
 	l2RBM = pickle.load(open("secondLayer_h" +str(h) + "_preTrained.p", "rb"))
-	l2RBM.estimateZ_AIS(steps=1000, M=500) # might not be enough steps...
+	l2RBM.estimateZ_AIS(steps=5000, M=500) # might not be enough steps...
 	ValidationLikelihoodL2[h] = []
 	for x in xrange(l2RBM.val_data.shape[0]):
 		if l2RBM.val_data[x].sum()>0:
