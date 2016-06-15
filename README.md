@@ -29,7 +29,7 @@ Below we provide some examples from the trained DBM model:
 ```
 import os
 import cPickle as pickle
-os chdir("Code")
+os.chdir("Code")
 from softmaxRBM import *
 from dropoutRBM import *
 from DBM import *
@@ -40,8 +40,14 @@ os.chdir("..")
 dbm = pickle.load(open("Weights/DBM_50_50_Full.p", "rb"))
 
 # one step reconstruction:
-dbm.oneStepRecon("fear")
+print dbm.oneStepRecon("fear")
 ## ['fear' 'amygdala' 'response' 'activity' 'functional' 'responses' 'cortex' 'brain' 'regions' 'activation']
 
+# embed a document:
+text = "At the forefront of neuroimaging is the understanding of the functional architecture of the human brain. In most applications functional networks are assumed to be stationary, resulting in a single network estimated for the entire time course. However recent results suggest that the connectivity between brain regions is highly non-stationary even at rest."
+print dbm.embedDoc(doc=text.split(" "))
+
+# similarly we can embed a single word, for example:
+print dbm.embedDoc(doc="fear")
 
 ```

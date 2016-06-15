@@ -272,6 +272,26 @@ class softmaxDBM_3layer(object):
 		if verbose:	print "converged in " +str(iter_) + " iterations"
 		return mu1, mu2
 
+	def embedDoc(self, doc):
+		"""
+		produce embedding in 50dim space for a given document.
+
+		doc should be a list containing the words in the document. 
+		eg as obtained by: text.split(" ")
+		"""
+		# initialize empty word vector (will fill this in later)
+		wordCounts = numpy.zeros(self.softmaxLayer.wordVec.shape)
+
+		# some cleaning on document:
+		doc2 = numpy.array([x.lower() for x in doc])
+		for i in xrange(self.softmaxLayer.wordVec.shape[0]):
+			wordCounts[i] = sum(doc2 == self.softmaxLayer.wordVec[i])
+
+		# now we can embed the document:
+		softmaxAct = sigmoid( numpy.dot(wordCounts, self.softmaxLayer.W)*self.softmaxLayer.bottomUp +self.softmaxLayer.hbias) # middle layer activation)
+		topAct = sigmoid( numpy.dot(softmaxAct, self.l2layer.W) + self.l2layer.hbias) 
+		return topAct
+
 
 	def oneStepRecon(self, word, n=10, mode="original", weightsAdjusted=True ):
 		"""
