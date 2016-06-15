@@ -23,3 +23,25 @@ The following (non-standard) libraries are required:
  - textmining (http://www.christianpeccei.com/textmining/) - used to build term incidence matrix
  - nltk (http://www.nltk.org/) - used for stopwords 
 Note that these library are only required for the text collection and cleaning (collectPaperText.py) and can be ignored if this step is skipped
+
+Below we provide some examples from the trained DBM model:
+
+```
+import os
+import cPickle as pickle
+os chdir("Code")
+from softmaxRBM import *
+from dropoutRBM import *
+from DBM import *
+os.chdir("..")
+
+
+# load in pretrained weights:
+dbm = pickle.load(open("Weights/DBM_50_50_Full.p", "rb"))
+
+# one step reconstruction:
+dbm.oneStepRecon("fear")
+## ['fear' 'amygdala' 'response' 'activity' 'functional' 'responses' 'cortex' 'brain' 'regions' 'activation']
+
+
+```
